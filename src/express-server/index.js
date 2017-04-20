@@ -1,21 +1,18 @@
 import express from 'express';
 import { resolve } from 'path';
 
-import { PORT } from '../config';
 import routers from './router';
+import exampleClientHTML from './client/client.html';
 
 const app = express();
 
-app.get('/', (req, res) => {
-  res.sendfile(
-    resolve(__dirname, 'hello-world.index.html'),
-  );
-});
-
+app.use(
+  express.static(resolve(__dirname, 'client')),
+);
 app.use('/api', routers);
 
-app.listen(PORT, () => {
-  console.info(`Express is running on port: ${PORT}`);
+app.get('/', (req, res) => {
+  res.send(exampleClientHTML);
 });
 
 export default app;

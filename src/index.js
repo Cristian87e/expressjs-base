@@ -1,14 +1,11 @@
 import http from 'http';
 
+import { PORT } from './config';
 import expressServerApp from './express-server';
+import { initializeSockets } from './sockets';
 
-http.Server(expressServerApp);
+const server = http.Server(expressServerApp);
 
-// var io = require('socket.io')(server);
+server.listen(PORT);
 
-// io.on('connection', function (socket) {
-//   socket.emit('news', { hello: 'world' });
-//   socket.on('my other event', function (data) {
-//     console.log(data);
-//   });
-// });
+initializeSockets(server);
